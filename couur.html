@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دروس الرياضيات - المنهج الجزائري</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #4facfe;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #495057;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #4facfe;
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .level-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .level-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .subject-header {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subject-header i {
+            font-size: 2rem;
+        }
+
+        .subject-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .lesson-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-right: 4px solid #4facfe;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .lesson-item:hover {
+            background: #e9ecef;
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .lesson-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .difficulty {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .difficulty.easy { background: #d4edda; color: #155724; }
+        .difficulty.medium { background: #fff3cd; color: #856404; }
+        .difficulty.hard { background: #f8d7da; color: #721c24; }
+
+        .lesson-duration {
+            color: #6c757d;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .lessons-grid { grid-template-columns: 1fr; }
+            .nav-tab { font-size: 0.9rem; padding: 12px 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-calculator"></i> دروس الرياضيات</h1>
+            <p>المنهج الجزائري - جميع المستويات</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showLevel('1as-adab')">الأولى ثانوي آداب</button>
+            <button class="nav-tab" onclick="showLevel('1as-science')">الأولى ثانوي علوم</button>
+            <button class="nav-tab" onclick="showLevel('2as-science')">الثانية ثانوي الشعب العلمية</button>
+            <button class="nav-tab" onclick="showLevel('2as-tech')">الثانية ثانوي تسيير واقتصاد</button>
+            <button class="nav-tab" onclick="showLevel('2as-t')">الثانية ثانوي اداب ولغات أجنبية</button>
+            <button class="nav-tab" onclick="showLevel('3as-science')">الثالثة ثانوي الشعب العلمية</button>
+            <button class="nav-tab" onclick="showLevel('3as-tech')">الثالثة ثانوي تسيير واقتصاد</button>
+            <button class="nav-tab" onclick="showLevel('3as-t')">الثالثة ثانوي اداب ولغات أجنبية</button>
+        </div>
+
+        <div class="content">
+            <!-- السنة الأولى ثانوي جذع مشترك آداب -->
+            <div id="1as-adab" class="level-section active">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-book-open"></i>
+                        <h2>الرياضيات - السنة الأولى ثانوي جذع مشترك آداب</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('ralitesgene-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاعداد و الحساب
+                            </div>
+                            <div class="lesson-description">
+                                تعريف الدالة، المجال، المجموعة المقابلة، التمثيل البياني
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 45 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('fonction-lineaire')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                المجالات و القيمة المطلقة
+                            </div>
+                            <div class="lesson-description">
+                                الدالة الخطية f(x) = ax، الدالة التآلفية f(x) = ax + b
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 50 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-inequations')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                عموميات على الدوال
+                            </div>
+                            <div class="lesson-description">
+                                حل المعادلات من الدرجة الأولى والثانية، المتراجحات البسيطة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 60 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                العبارات الجبرية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الدوال المرجعية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الإحصاء
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+
+                        <div class="lesson-item" onclick="openLesson('pourcentages')">
+                            <div class="lesson-title">
+                                <i class="fas fa-percentage"></i>
+                                الحساب الشعاعي و معادلة مستقيم
+                            </div>
+                            <div class="lesson-description">
+                                حساب النسب المئوية، الزيادة والنقصان المئوي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 35 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السنة الأولى ثانوي جذع مشترك علوم -->
+            <div id="1as-science" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-atom"></i>
+                        <h2>الرياضيات - السنة الأولى ثانوي جذع مشترك علوم وتكنولوجيا</h2>
+                    </div>
+                    <div class="lessons-grid">
+                       <div class="lesson-item" onclick="openLesson('generalites-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاعداد و الحساب
+                            </div>
+                            <div class="lesson-description">
+                                تعريف الدالة، المجال، المجموعة المقابلة، التمثيل البياني
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 45 دقيقة</span>
+                            </div>
+    
+                        </div>
+                                                
+
+                        <div class="lesson-item" onclick="openLesson('fonction-lineaire')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                المجالات و القيمة المطلقة
+                            </div>
+                            <div class="lesson-description">
+                                الدالة الخطية f(x) = ax، الدالة التآلفية f(x) = ax + b
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 50 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-inequations')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                عموميات على الدوال
+                            </div>
+                            <div class="lesson-description">
+                                حل المعادلات من الدرجة الأولى والثانية، المتراجحات البسيطة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 60 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                العبارات الجبرية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الدوال المرجعية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الإحصاء
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-plane')">
+                            <div class="lesson-title">
+                                <i class="fas fa-shapes"></i>
+                                الهندسة المستوية
+                            </div>
+                            <div class="lesson-description">
+                                الأشكال الهندسية، حساب المساحات والمحيطات
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 55 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('pourcentages')">
+                            <div class="lesson-title">
+                                <i class="fas fa-percentage"></i>
+                                الحساب الشعاعي و معادلة مستقيم
+                            </div>
+                            <div class="lesson-description">
+                                حساب النسب المئوية، الزيادة والنقصان المئوي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 35 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('geometrie-plane')">
+                            <div class="lesson-title">
+                                <i class="fas fa-shapes"></i>
+                                الهندسة في الفضاء
+                            </div>
+                            <div class="lesson-description">
+                                الأشكال الهندسية، حساب المساحات والمحيطات
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 55 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السنة الثانية ثانوي الشعب العلمية -->
+            <div id="2as-science" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-microscope"></i>
+                        <h2>الرياضيات - السنة الثانية ثانوي الشعب العلمية</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('suites-numeriques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-list-ol"></i>
+                                المتتاليات العددية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المتتالية، المتتاليات الحسابية والهندسية، دراسة التغير
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('suites-numeriques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-list-ol"></i>
+                              النهايات 
+                            </div>
+                            <div class="lesson-description">
+                                نهاية دالة في نقطة، في اللانهاية، الاستمرارية والقطع
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('derivation')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاشتقاقية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المشتقة، قواعد الاشتقاق، التفسير الهندسي والفيزيائي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                دراسة الدوال
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                            الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('limites-continuite')">
+                            <div class="lesson-title">
+                                <i class="fas fa-infinity"></i>
+                                المرجح 
+                            </div>
+                            <div class="lesson-description">
+                                نهاية دالة في نقطة، في اللانهاية، الاستمرارية والقطع
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('derivation')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الزوايا الموجهة
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المشتقة، قواعد الاشتقاق، التفسير الهندسي والفيزيائي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                التحويلات النقطية
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                               الجداء السلمي 
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-espace-2as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-cube"></i>
+                                الهندسة الفضائية
+                            </div>
+                            <div class="lesson-description">
+                                الأشعة في الفضاء، المستقيمات والمستويات، التعامد والتوازي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السنة الثانية ثانوي تسيير و اقتصاد  -->
+            <div id="2as-tech" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-cogs"></i>
+                        <h2>الرياضيات - السنة الثانية ثانوي تسيير و اقتصاد</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('analyse-avancee')">
+                            <div class="lesson-title">
+                                <i class="fas fa-function"></i>
+                                النسب المؤوية و المؤشرات
+                            </div>
+                            <div class="lesson-description">
+                                دراسة متقدمة للدوال، النهايات المعقدة، الاشتقاق المتقدم
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 110 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('primitives-integrales')">
+                            <div class="lesson-title">
+                                <i class="fas fa-integral"></i>
+                                الاحصاء
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الدالة الأصلية، تقنيات التكامل، التطبيقات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 120 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-differentielles')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                المعادلات التفاضلية من الرتبة الأولى، التطبيقات التقنية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('nombres-complexes')">
+                            <div class="lesson-title">
+                                <i class="fas fa-square-root-alt"></i>
+                                الدوال
+                            </div>
+                            <div class="lesson-description">
+                                تعريف العدد المركب، العمليات، الشكل المثلثي، صيغة موافر
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-analytique')">
+                            <div class="lesson-title">
+                                <i class="fas fa-compass"></i>
+                                المشتقات
+                            </div>
+                            <div class="lesson-description">
+                                المخروطيات، المعادلات البارامترية، التحويلات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('statistiques-avancees')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                السلوك التقاربي
+                            </div>
+                            <div class="lesson-description">
+                                التوزيعات الإحصائية، اختبار الفرضيات، الانحدار الخطي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 80 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-avancees')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                معادلات ومتراجحات
+                            </div>
+                            <div class="lesson-description">
+                                التوزيعات الإحصائية، اختبار الفرضيات، الانحدار الخطي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 80 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-avancees')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                المتتاليات
+                            </div>
+                            <div class="lesson-description">
+                                التوزيعات الإحصائية، اختبار الفرضيات، الانحدار الخطي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 80 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- السنة الثانية ثانوي اداب ولغات أجنبية  -->
+            <div id="2as-t" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-cogs"></i>
+                        <h2>الرياضيات - السنة الثانية ثانوي اداب ولغات أجنبية</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('analyse-avancee')">
+                            <div class="lesson-title">
+                                <i class="fas fa-function"></i>
+                                النسب المؤوية و المؤشرات
+                            </div>
+                            <div class="lesson-description">
+                                دراسة متقدمة للدوال، النهايات المعقدة، الاشتقاق المتقدم
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 110 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('primitives-integrales')">
+                            <div class="lesson-title">
+                                <i class="fas fa-integral"></i>
+                                الاحصاء
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الدالة الأصلية، تقنيات التكامل، التطبيقات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 120 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-differentielles')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                المعادلات التفاضلية من الرتبة الأولى، التطبيقات التقنية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('nombres-complexes')">
+                            <div class="lesson-title">
+                                <i class="fas fa-square-root-alt"></i>
+                                الدوال
+                            </div>
+                            <div class="lesson-description">
+                                تعريف العدد المركب، العمليات، الشكل المثلثي، صيغة موافر
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-analytique')">
+                            <div class="lesson-title">
+                                <i class="fas fa-compass"></i>
+                                المتتاليات
+                            </div>
+                            <div class="lesson-description">
+                                المخروطيات، المعادلات البارامترية، التحويلات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        
+             <!-- السنة الثالثة ثانوي الشعب العلمية -->
+            <div id="3as-science" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-microscope"></i>
+                        <h2>الرياضيات - السنة الثالثة ثانوي الشعب العلمية</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('suites-numeriques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-list-ol"></i>
+                                المتتاليات العددية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المتتالية، المتتاليات الحسابية والهندسية، دراسة التغير
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('limites-continuite')">
+                            <div class="lesson-title">
+                                <i class="fas fa-infinity"></i>
+                                النهايات 
+                            </div>
+                            <div class="lesson-description">
+                                نهاية دالة في نقطة، في اللانهاية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('derivation')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاشتقاقية والاستمرارية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المشتقة، قواعد الاشتقاق، التفسير الهندسي والفيزيائي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                الدالة الاسية
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                الدالة اللوغاريتمية
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                التزايد المقارن
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                                الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+                         <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                                الاعداد و الحساب
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+                         <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                                الدوال الاصلية والحساب التكاملي
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+                         <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                                الأعداد المركبة
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-espace-2as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-cube"></i>
+                                الهندسة الفضائية
+                            </div>
+                            <div class="lesson-description">
+                                الأشعة في الفضاء، المستقيمات والمستويات، التعامد والتوازي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- السنة الثالثة ثانوي تسيير و اقتصاد  -->
+            <div id="3as-tech" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-cogs"></i>
+                        <h2>الرياضيات - السنة الثالثة ثانوي تسيير و اقتصاد</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('analyse-avancee')">
+                            <div class="lesson-title">
+                                <i class="fas fa-function"></i>
+                                المتتاليات العددية
+                            </div>
+                            <div class="lesson-description">
+                                دراسة متقدمة للدوال، النهايات المعقدة، الاشتقاق المتقدم
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 110 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('primitives-integrales')">
+                            <div class="lesson-title">
+                                <i class="fas fa-integral"></i>
+                                الدوال الأصلية والتكامل
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الدالة الأصلية، تقنيات التكامل، التطبيقات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 120 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-differentielles')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                الدوال العددية
+                            </div>
+                            <div class="lesson-description">
+                                المعادلات التفاضلية من الرتبة الأولى، التطبيقات التقنية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('nombres-complexes')">
+                            <div class="lesson-title">
+                                <i class="fas fa-square-root-alt"></i>
+                                الدالة اللوغاريتمية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف العدد المركب، العمليات، الشكل المثلثي، صيغة موافر
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-analytique')">
+                            <div class="lesson-title">
+                                <i class="fas fa-compass"></i>
+                                الدالة الاسية
+                            </div>
+                            <div class="lesson-description">
+                                المخروطيات، المعادلات البارامترية، التحويلات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('statistiques-avancees')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الإحصاء 
+                            </div>
+                            <div class="lesson-description">
+                                التوزيعات الإحصائية، اختبار الفرضيات، الانحدار الخطي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 80 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-avancees')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الاحتمالات 
+                            </div>
+                            <div class="lesson-description">
+                                التوزيعات الإحصائية، اختبار الفرضيات، الانحدار الخطي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 80 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- السنة الثالثة ثانوي اداب ولغات أجنبية  -->
+            <div id="3as-t" class="level-section">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-cogs"></i>
+                        <h2>الرياضيات - السنة الثالثة ثانوي اداب ولغات أجنبية</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('analyse-avancee')">
+                            <div class="lesson-title">
+                                <i class="fas fa-function"></i>
+                                المتتاليات العددية
+                            </div>
+                            <div class="lesson-description">
+                                دراسة متقدمة للدوال، النهايات المعقدة، الاشتقاق المتقدم
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 110 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('primitives-integrales')">
+                            <div class="lesson-title">
+                                <i class="fas fa-integral"></i>
+                                الموافقات في z
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الدالة الأصلية، تقنيات التكامل، التطبيقات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 120 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-differentielles')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                الدوال كثيرات الحدود
+                            </div>
+                            <div class="lesson-description">
+                                المعادلات التفاضلية من الرتبة الأولى، التطبيقات التقنية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('nombres-complexes')">
+                            <div class="lesson-title">
+                                <i class="fas fa-square-root-alt"></i>
+                                الدالة التناظرية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف العدد المركب، العمليات، الشكل المثلثي، صيغة موافر
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-analytique')">
+                            <div class="lesson-title">
+                                <i class="fas fa-compass"></i>
+                                الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                المخروطيات، المعادلات البارامترية، التحويلات الهندسية
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <button class="floating-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        function showLevel(levelId) {
+            // إخفاء جميع الأقسام
+            const sections = document.querySelectorAll('.level-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار القسم المطلوب
+            document.getElementById(levelId).classList.add('active');
+
+            // تحديث التبويبات
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function openLesson(lessonId) {
+            alert(`سيتم فتح درس: ${lessonId}\nهذه وظيفة تجريبية - يمكنك ربطها بصفحات الدروس الفعلية`);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إضافة تأثيرات تفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonItems = document.querySelectorAll('.lesson-item');
+            
+            lessonItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(-10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0) scale(1)';
+                });
+            });
+        });
+
+        // إظهار/إخفاء زر العودة للأعلى
+        window.addEventListener('scroll', function() {
+            const floatingBtn = document.querySelector('.floating-btn');
+            if (window.pageYOffset > 300) {
+                floatingBtn.style.opacity = '1';
+                floatingBtn.style.transform = 'translateY(0)';
+            } else {
+                floatingBtn.style.opacity = '0';
+                floatingBtn.style.transform = 'translateY(20px)';
+            }
+        });
+    </script>
+    <script>
+        // بيانات الملفات لكل درس
+        const lessonFiles = {
+            // السنة الأولى آداب
+            'ralitesgene-fonctions': {
+                title: 'الأعداد والحساب',
+                files: [
+                    {
+                        name: 'مذكرات  تمارين فروض مع ملف latex',
+                        type: 'pdf',
+                        size: '2.5 MB',
+                        description: 'شرح مفصل للأعداد الطبيعية والصحيحة مع أمثلة',
+                        url: 'https://drive.google.com/file/d/1Yxv59M0912CHmSFMMwnHlrVyWYZZmc2V/view?usp=drivesdk'
+                    },
+                    {
+                        name: 'فيديو شرح العمليات الحسابية',
+                        type: 'video',
+                        size: '45 MB',
+                        description: 'شرح مرئي للعمليات الأساسية'
+                    },
+                    {
+                        name: 'عرض تقديمي - الأعداد',
+                        type: 'ppt',
+                        size: '5.2 MB',
+                        description: 'عرض PowerPoint تفاعلي'
+                    }
+                ],
+                exercises: [
+                    'احسب: 15 + 23 × 4',
+                    'أوجد ناتج: (25 - 7) ÷ 3',
+                    'رتب الأعداد التالية تصاعدياً: 45، 12، 78، 34'
+                ]
+            },
+            '1as-adab-intervals': {
+                title: 'المجالات والقيمة المطلقة',
+                files: [
+                    {
+                        name: 'درس المجالات',
+                        type: 'pdf',
+                        size: '1.8 MB',
+                        description: 'تعريف المجالات وأنواعها'
+                    },
+                    {
+                        name: 'القيمة المطلقة وخصائصها',
+                        type: 'pdf',
+                        size: '2.1 MB',
+                        description: 'شرح شامل للقيمة المطلقة'
+                    },
+                    {
+                        name: 'تمارين محلولة',
+                        type: 'doc',
+                        size: '1.5 MB',
+                        description: 'مجموعة تمارين مع الحلول'
+                    }
+                ],
+                exercises: [
+                    'أوجد |−7|',
+                    'حل المعادلة |x| = 5',
+                    'عين المجال: [−3, 7['
+                ]
+            },
+            '1as-adab-functions': {
+                title: 'عموميات على الدوال',
+                files: [
+                    {
+                        name: 'مقدمة في الدوال',
+                        type: 'pdf',
+                        size: '3.2 MB',
+                        description: 'تعريف الدالة ومفاهيمها الأساسية'
+                    },
+                    {
+                        name: 'التمثيل البياني للدوال',
+                        type: 'video',
+                        size: '67 MB',
+                        description: 'كيفية رسم منحنى الدالة'
+                    },
+                    {
+                        name: 'ورقة عمل - خصائص الدوال',
+                        type: 'doc',
+                        size: '0.8 MB',
+                        description: 'أنشطة تطبيقية'
+                    }
+                ],
+                exercises: [
+                    'عين مجال تعريف الدالة f(x) = √(x-2)',
+                    'أوجد f(3) إذا كانت f(x) = 2x + 1',
+                    'ارسم منحنى الدالة f(x) = x²'
+                ]
+            },
+            // السنة الأولى علوم
+            '1as-science-numbers': {
+                title: 'الأعداد والحساب',
+                files: [
+                    {
+                        name: 'الأعداد الحقيقية والمركبة',
+                        type: 'pdf',
+                        size: '4.1 MB',
+                        description: 'دراسة متقدمة للأعداد'
+                    },
+                    {
+                        name: 'العمليات المتقدمة',
+                        type: 'video',
+                        size: '52 MB',
+                        description: 'عمليات حسابية معقدة'
+                    },
+                    {
+                        name: 'حلول التمارين',
+                        type: 'pdf',
+                        size: '2.7 MB',
+                        description: 'حلول مفصلة للتمارين'
+                    }
+                ],
+                exercises: [
+                    'احسب: √(25) + ∛(27)',
+                    'أوجد قيمة: (2³ × 3²) ÷ 6',
+                    'بسط العبارة: (a + b)² - (a - b)²'
+                ]
+            },
+            '3as-science-sequences': {
+                title: 'المتتاليات العددية',
+                files: [
+                    {
+                        name: 'نظرية المتتاليات',
+                        type: 'pdf',
+                        size: '5.8 MB',
+                        description: 'الأسس النظرية للمتتاليات'
+                    },
+                    {
+                        name: 'المتتاليات الحسابية والهندسية',
+                        type: 'pdf',
+                        size: '4.2 MB',
+                        description: 'دراسة تفصيلية للمتتاليات الخاصة'
+                    },
+                    {
+                        name: 'فيديو - نهايات المتتاليات',
+                        type: 'video',
+                        size: '78 MB',
+                        description: 'شرح مفهوم النهاية'
+                    },
+                    {
+                        name: 'بنك الأسئلة',
+                        type: 'doc',
+                        size: '3.1 MB',
+                        description: 'أسئلة شاملة مع الحلول'
+                    }
+                ],
+                exercises: [
+                    'أوجد الحد العام للمتتالية: 2, 5, 8, 11, ...',
+                    'احسب مجموع الحدود العشرة الأولى من المتتالية الهندسية: 1, 3, 9, 27, ...',
+                    'ادرس تقارب المتتالية: uₙ = (2n + 1)/(n + 3)'
+                ]
+            },
+            '3as-science-limits': {
+                title: 'النهايات',
+                files: [
+                    {
+                        name: 'مفهوم النهاية',
+                        type: 'pdf',
+                        size: '4.6 MB',
+                        description: 'التعريف الدقيق للنهاية'
+                    },
+                    {
+                        name: 'قوانين النهايات',
+                        type: 'pdf',
+                        size: '3.8 MB',
+                        description: 'القوانين الأساسية لحساب النهايات'
+                    },
+                    {
+                        name: 'النهايات اللامنتهية',
+                        type: 'video',
+                        size: '64 MB',
+                        description: 'النهايات عند اللانهاية'
+                    }
+                ],
+                exercises: [
+                    'احسب: lim(x→2) (x² - 4)/(x - 2)',
+                    'أوجد: lim(x→∞) (3x + 1)/(2x - 5)',
+                    'ادرس استمرارية الدالة f(x) = |x - 1| عند x = 1'
+                ]
+            }
+            // يمكن إضافة المزيد من الدروس هنا...
+        };
+
+        function showLevel(levelId) {
+            // إخفاء جميع الأقسام
+            const sections = document.querySelectorAll('.level-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // إظهار القسم المطلوب
+            document.getElementById(levelId).classList.add('active');
+
+            // تحديث التبويبات
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        function openFile(fileUrl) {
+    window.open(fileUrl, '_blank');
+}
+
+        function openLesson(lessonTitle, lessonId) {
+            const modal = document.getElementById('filesModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.innerHTML = `<i class="fas fa-folder-open"></i> ${lessonTitle}`;
+            
+            if (lessonFiles[lessonId]) {
+                const lesson = lessonFiles[lessonId];
+                
+                let filesHTML = `
+                    <div class="files-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-file-alt"></i>
+                            الملفات المرفقة
+                        </h4>
+                `;
+                
+                lesson.files.forEach(file => {
+                    const iconClass = getFileIcon(file.type);
+                    filesHTML += `
+                        <div class="file-item">
+                            <div class="file-icon ${iconClass}">
+                                <i class="fas ${getFileIconName(file.type)}"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-details">${file.description} - ${file.size}</div>
+                            </div>
+                            <button class="download-btn" onclick="downloadFile('${file.name}')">
+                                <i class="fas fa-download"></i> تحميل
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                filesHTML += `</div>`;
+                
+                // إضافة قسم التمارين
+                if (lesson.exercises && lesson.exercises.length > 0) {
+                    filesHTML += `
+                        <div class="exercises-section">
+                            <h4 class="section-title">
+                                <i class="fas fa-pencil-alt"></i>
+                                تمارين تطبيقية
+                            </h4>
+                    `;
+                    
+                    lesson.exercises.forEach((exercise, index) => {
+                        filesHTML += `
+                            <div class="exercise-item">
+                                <strong>تمرين ${index + 1}:</strong> ${exercise}
+                            </div>
+                        `;
+                    });
+                    
+                    filesHTML += `</div>`;
+                }
+                
+                modalBody.innerHTML = filesHTML;
+            } else {
+                // إذا لم تكن هناك بيانات متاحة للدرس
+                modalBody.innerHTML = `
+                    <div class="files-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-info-circle"></i>
+                            معلومات الدرس
+                        </h4>
+                        <div class="file-item">
+                            <div class="file-icon file-pdf">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">ملخص الدرس</div>
+                                <div class="file-details">سيتم إضافة الملفات قريباً - PDF 0 MB</div>
+                            </div>
+                            <button class="download-btn" disabled>
+                                <i class="fas fa-clock"></i> قريباً
+                            </button>
+                        </div>
+                        <div class="file-item">
+                            <div class="file-icon file-video">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">شرح مرئي</div>
+                                <div class="file-details">فيديو توضيحي للدرس - فيديو 0 MB</div>
+                            </div>
+                            <button class="download-btn" disabled>
+                                <i class="fas fa-clock"></i> قريباً
+                            </button>
+                        </div>
+                    </div>
+                    <div class="exercises-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-pencil-alt"></i>
+                            تمارين تطبيقية
+                        </h4>
+                        <div class="exercise-item">
+                            <strong>تمرين 1:</strong> سيتم إضافة التمارين قريباً
+                        </div>
+                        <div class="exercise-item">
+                            <strong>تمرين 2:</strong> سيتم إضافة التمارين قريباً
+                        </div>
+                    </div>
+                `;
+            }
+            
+            modal.style.display = 'block';
+            // بدلاً من زر التحميل العادي، استخدم هذا:
+             `<button class="preview-btn" onclick="previewFile('${file.url}', 'pdf')">
+                <i class="fas fa-eye"></i> معاينة
+              </button>`
+        }
+        function previewFile(fileUrl, fileType) {
+    if (fileType === 'pdf') {
+        // افتح PDF في نافذة منبثقة جديدة
+        const pdfWindow = window.open('', '_blank');
+        pdfWindow.document.write(`
+            <iframe 
+                src="${fileUrl}" 
+                width="100%" 
+                height="100%" 
+                style="border:none;"
+                title="معاينة الملف"
+            ></iframe>
+        `);
+    } else if (fileType === 'video') {
+        // افتح الفيديو في مشغل
+        openVideoPlayer(fileUrl);
+    } else {
+        // للملفات الأخرى، افتحها في نافذة جديدة
+        window.open(fileUrl, '_blank');
+    }
+}
+
+function openVideoPlayer(videoUrl) {
+    const videoModal = document.createElement('div');
+    videoModal.style.position = 'fixed';
+    videoModal.style.top = '0';
+    videoModal.style.left = '0';
+    videoModal.style.width = '100%';
+    videoModal.style.height = '100%';
+    videoModal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+    videoModal.style.zIndex = '2000';
+    videoModal.style.display = 'flex';
+    videoModal.style.justifyContent = 'center';
+    videoModal.style.alignItems = 'center';
+    
+    videoModal.innerHTML = `
+        <div style="position:relative; width:80%; max-width:800px;">
+            <button onclick="this.parentElement.parentElement.remove()" 
+                    style="position:absolute; top:-40px; right:0; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">
+                إغلاق
+            </button>
+            <video controls autoplay style="width:100%;">
+                <source src="${videoUrl}" type="video/mp4">
+                المتصفح لا يدعم تشغيل الفيديو
+            </video>
+        </div>
+    `;
+    
+    document.body.appendChild(videoModal);
+}
+
+        function getFileIcon(type) {
+            switch(type) {
+                case 'pdf': return 'file-pdf';
+                case 'video': return 'file-video';
+                case 'ppt': return 'file-ppt';
+                case 'doc': return 'file-doc';
+                default: return 'file-pdf';
+            }
+        }
+
+        function getFileIconName(type) {
+            switch(type) {
+                case 'pdf': return 'fa-file-pdf';
+                case 'video': return 'fa-video';
+                case 'ppt': return 'fa-file-powerpoint';
+                case 'doc': return 'fa-file-word';
+                default: return 'fa-file';
+            }
+        }
+
+       function downloadFile(fileName, fileUrl) {
+    // إنشاء عنصر <a> خفي للتحميل
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = fileName;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+        function closeModal() {
+            document.getElementById('filesModal').style.display = 'none';
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        window.onclick = function(event) {
+            const modal = document.getElementById('filesModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إضافة تأثيرات تفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonItems = document.querySelectorAll('.lesson-item');
+        
+        
+        });
+        </script>
+</body>
+</html>

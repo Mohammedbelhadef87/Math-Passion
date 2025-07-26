@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دروس الرياضيات - المنهج الجزائري</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #3f51b5, #2196f3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid #ff9800;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #3f51b5;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #495057;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: #dee2e6;
+        }
+
+        .nav-tab.active {
+            background: #3f51b5;
+            color: white;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #ff9800;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .level-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .level-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-header {
+            background: linear-gradient(45deg, #3f51b5, #2196f3);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subject-header i {
+            font-size: 1.8rem;
+            color: #ffeb3b;
+        }
+
+        .subject-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .lesson-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border-right: 4px solid #3f51b5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+
+        .lesson-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.15);
+            border-color: #3f51b5;
+        }
+
+        .lesson-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-title i {
+            color: #3f51b5;
+            font-size: 1.2rem;
+        }
+
+        .lesson-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .difficulty {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .difficulty.easy { background: #e8f5e9; color: #2e7d32; }
+        .difficulty.medium { background: #fff8e1; color: #ff8f00; }
+        .difficulty.hard { background: #ffebee; color: #c62828; }
+
+        .lesson-duration {
+            color: #6c757d;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* نافذة عرض الملفات */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.4s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #f44336;
+        }
+
+        .modal-header {
+            padding: 15px 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #3f51b5;
+        }
+
+        .modal-header i {
+            font-size: 1.8rem;
+            color: #3f51b5;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .files-section, .exercises-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #3f51b5;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .file-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+            border-color: #3f51b5;
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .file-pdf { background: #f44336; }
+        .file-video { background: #2196f3; }
+        .file-ppt { background: #ff9800; }
+        .file-doc { background: #4caf50; }
+
+        .file-info {
+            flex-grow: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .file-details {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            gap: 15px;
+        }
+
+        .file-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn, .preview-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            background: #3f51b5;
+        }
+
+        .preview-btn {
+            background: #6c757d;
+        }
+
+        .download-btn:hover {
+            background: #303f9f;
+            transform: translateY(-2px);
+        }
+
+        .preview-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .exercise-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-right: 3px solid #3f51b5;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .exercise-item::before {
+            content: "تمرين";
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: #3f51b5;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* زر العودة للأعلى */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .floating-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-btn:hover {
+            background: #303f9f;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            
+            .lessons-grid { 
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .nav-tab { 
+                font-size: 0.9rem; 
+                padding: 12px 10px; 
+                min-width: 140px; 
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-icon {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .file-actions {
+                width: 100%;
+                display: flex;
+                margin-top: 10px;
+            }
+            
+            .download-btn, .preview-btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.5rem; }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .subject-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .subject-header i {
+                font-size: 1.5rem;
+            }
+            
+            .lesson-item {
+                padding: 15px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-square-root-alt"></i> الشعب العلمية</h1>
+            <p>مذكرات-تمارين-ملخصات-فروض-اختبارات</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showLevel('1as-science')">دروس ومذكرات</button>
+            <button class="nav-tab" onclick="showLevel('1as-td')">تماربن وملخصات</button>
+            <button class="nav-tab" onclick="showLevel('1as-exem')">فروض واختبارات</button>
+           
+            <!-- يمكن إضافة مستويات أخرى هنا -->
+        </div>
+
+        <div class="content">
+            <div id="2as-science " class="level-section active">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-microscope"></i>
+                        <h2>الرياضيات - السنة الثانية ثانوي الشعب العلمية</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('suites-numeriques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-list-ol"></i>
+                                المتتاليات العددية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المتتالية، المتتاليات الحسابية والهندسية، دراسة التغير
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('suites-numeriques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-list-ol"></i>
+                              النهايات 
+                            </div>
+                            <div class="lesson-description">
+                                نهاية دالة في نقطة، في اللانهاية، الاستمرارية والقطع
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('derivation')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاشتقاقية
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المشتقة، قواعد الاشتقاق، التفسير الهندسي والفيزيائي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                دراسة الدوال
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                            الاحتمالات
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('limites-continuite')">
+                            <div class="lesson-title">
+                                <i class="fas fa-infinity"></i>
+                                المرجح 
+                            </div>
+                            <div class="lesson-description">
+                                نهاية دالة في نقطة، في اللانهاية، الاستمرارية والقطع
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 90 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('derivation')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الزوايا الموجهة
+                            </div>
+                            <div class="lesson-description">
+                                تعريف المشتقة، قواعد الاشتقاق، التفسير الهندسي والفيزيائي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 95 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('etude-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-search"></i>
+                                التحويلات النقطية
+                            </div>
+                            <div class="lesson-description">
+                                رسم منحنيات الدوال، النقط الحرجة، التزايد والتناقص
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 100 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('probabilites-base')">
+                            <div class="lesson-title">
+                                <i class="fas fa-dice"></i>
+                               الجداء السلمي 
+                            </div>
+                            <div class="lesson-description">
+                                مفهوم الاحتمال، قوانين الاحتمال، الأحداث المركبة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 70 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('geometrie-espace-2as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-cube"></i>
+                                الهندسة الفضائية
+                            </div>
+                            <div class="lesson-description">
+                                الأشعة في الفضاء، المستقيمات والمستويات، التعامد والتوازي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty hard">صعب</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 85 دقيقة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               <!-- قسم جديد للتمارين -->
+         <div id="1as-td" class="level-section">
+           <div class="subject-card">
+               <div class="subject-header">
+                <i class="fas fa-pen-fancy"></i>
+                <h2>تمارين الرياضيات</h2>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-item" onclick="openLesson('all-exercises')">
+                    <div class="lesson-title">
+                        <i class="fas fa-tasks"></i>
+                        سلسلة التمارين الشاملة
+                    </div>
+                    <div class="lesson-description">
+                        جميع تمارين الرياضيات للسنة الأولى ثانوي
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty medium">متوسط</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 120 دقيقة</span>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+   
+    <!-- قسم جديد للفروض -->
+    <div id="1as-exem" class="level-section">
+        <div class="subject-card">
+            <div class="subject-header">
+                <i class="fas fa-clipboard-check"></i>
+                <h2>فروض واختبارات</h2>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-item" onclick="openLesson('semester1-exams')">
+                    <div class="lesson-title">
+                        <i class="fas fa-file-signature"></i>
+                        فروض الفصل الأول
+                    </div>
+                    <div class="lesson-description">
+                        نماذج فروض الفصل الأول مع الحلول
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty medium">متوسط</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 90 دقيقة</span>
+                    </div>
+                </div>
+                <div class="lesson-item" onclick="openLesson('semester2-exams')">
+                    <div class="lesson-title">
+                        <i class="fas fa-award"></i>
+                        اختبارات نهاية السنة
+                    </div>
+                    <div class="lesson-description">
+                        نماذج اختبارات نهاية السنة مع الحلول
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty hard">صعب</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 120 دقيقة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+     
+        </div>
+    </div>
+
+    <!-- نافذة عرض الملفات -->
+    <div id="filesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-book-open"></i>
+                <h2 id="modalTitle">عنوان الدرس</h2>
+            </div>
+            
+            <div class="files-section">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>الملفات التعليمية</h3>
+                </div>
+                <div id="modalFiles"></div>
+            </div>
+            
+            <div class="exercises-section">
+                <div class="section-title">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>تمارين تطبيقية</h3>
+                </div>
+                <div id="modalExercises"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="floating-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // بيانات الدروس والملفات
+        const lessonFiles = {
+            'suites-numeriques': {
+        title: 'المتتاليات العددية',
+        files: [
+            {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات شداني',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شداني',
+                url: 'https://drive.google.com/drive/folders/1KgdznkWeO_kmwSGenNqHb6NhL0n2h2GN'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            },
+            {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات بخدة امين',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+            {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+            {
+                name: 'مذكرات الاستاذ دهيمي',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات الاستاذ دهيمي',
+                url: 'https://drive.google.com/drive/folders/1Nb-wyoaNCOQELLuQqdu3JWmVn27CZ4X5'
+            },
+            {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات بن علو لخضر',
+                url: 'https://drive.google.com/drive/folders/1ItfBpFY4UydttRiZRlWene3uXzIOHdh-'
+            },
+            {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            }
+        ],
+        exercises: [
+            'حدد نوع المتتالية: 3, 6, 12, 24,...',
+            'أوجد الحد العام للمتتالية الحسابية التي فيها a₁=2 و d=3'
+        ]
+    },
+    'derivation': {
+        title: 'الاشتقاقية',
+        files: [
+            {
+                name: 'مذكرات كمال بلبحري الدوال الاشتقاقية',
+                type: 'pdf',
+                size: '3.0 MB',
+                description: 'شرح قواعد الاشتقاق الأساسية',
+                url: 'https://drive.google.com/drive/folders/1MKVIsjQm7uvic_uuKEr_6ThggzEXJQAD'
+            },
+            {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            },
+             {
+                name: 'مذكرات شداني',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1TN0rbFQOwhdjOAdpMPP0hc1mcPEpq-Px'
+            },
+             {
+                name: 'مذكرات شداني',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1BAiVZrj9vpILJAkDjcdC1XxdKU_EmM2n'
+            },
+             {
+                name: 'مذكرات بلعالية العربي',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1D7EELq8toW_i6wJ_2g0Jjq_X1Y8uiDdV'
+            },
+             {
+                name: 'مذكرات بلعالية العربي',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1H_yCH88n3YaTeKumSymm-uW7oaStIkSS'
+            },
+             {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+             {
+                name: 'مذكرات بن علو لخضر',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/11A9y89uV-1Jb_xqyD4ErIfTPMT8W4jsN'
+            }
+        
+        ],
+        exercises: [
+            'اشتق الدالة: f(x) = 3x² + 2x - 5',
+            'أوجد مشتقة الدالة f(x) = sin(x)'
+        ]
+    },
+    'etude-fonctions': {
+        title: 'دراسة الدوال',
+        files: [
+            {
+                name: 'مذكرات مع ملف latex',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/file/d/1utVIcyLjXkI2LD3xeK7cizCqPFNWbN3R/view?usp=drivesdk'
+            },
+            {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1mdPhURyhl2Ts6S8QY5xRm0xM1IGGDFAo'
+            },
+            {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1w3TgjiNylMYykbFFUhiEs0dw7vgCJOmB'
+            },
+            {
+                name: 'مذكرات بلعالية العربي',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1Ysj33jXRjqqVDycj6QD81jRlAi85l347'
+            },
+            {
+                name: 'مذكرات بلعالية العربي',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1y-nq84dH0MOD6URJNaONKIhvN6BEQMRn'
+            },
+            {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+            {
+                name: 'مذكرات سمية طويل',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+             {
+                name: 'مذكرات كمال بلبحري الدوال الاشتقاقية',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1MKVIsjQm7uvic_uuKEr_6ThggzEXJQAD'
+            },
+             {
+                name: 'مذكرات الاستاذ دهيمي',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1Nb-wyoaNCOQELLuQqdu3JWmVn27CZ4X5'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            }
+
+            
+
+
+
+        ],
+        exercises: [
+            'ادرس تغيرات الدالة f(x) = x³ - 3x',
+            'عين نقاط القصوى للدالة f(x) = x² - 4x + 3'
+        ]
+    },
+    'probabilites-base': {
+        title: 'الاحتمالات',
+        files: [
+            {
+                name: 'انشطة الاحتمالات',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1ekcKTox67_vyOgBH2A18x5MFp1H9YjEN'
+            },
+              {
+                name: 'مذكرات صلاح الدين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1J4ZaL7L6IEFqRbg8sbVSNY9CZrx9bd1o?fbclid=IwY2xjawLTzndleHRuA2FlbQIxMQABHhXhPFZzIYEfXcUTgYr3fGAqT4idzLBEwpGLHlK40GQPlokngNNNcxYCATba_aem_-PJcmyb1hKkn4ZVQDEgNjw'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+              {
+                name: 'مذكرات دحام ياسين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1LcsYCOWFWHoHLXs-9e5J49RT2mp4f3KG'
+            },
+              {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+              {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1KjiKPknqAYdvzE_NRKM10dB4u50RqMuf'
+            },
+              {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/19ZBxMoA184_DkojmgQXfWb5TqXVaYnWZ'
+            }
+        ],
+        exercises: [
+            'احسب احتمال الحصول على عدد زوجي عند رمي حجر النرد',
+            'إذا كان P(A)=0.3 و P(B)=0.4 و P(A∩B)=0.1، احسب P(A∪B)'
+        ]
+    },
+    'limites-continuite': {
+        title: 'المرجح',
+        files: [
+              {
+                name: 'مذكرات شيلة خديجة',
+                type: 'pdf',
+                size: '3.5 MB',
+                description: 'كيفية دراسة الدوال',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+              {
+                name: 'مذكرات دحام ياسين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1LcsYCOWFWHoHLXs-9e5J49RT2mp4f3KG'
+            },
+              {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+            {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '2.6 MB',
+                description: 'شرح مفهوم المرجح',
+                url: 'https://drive.google.com/drive/folders/1GhQ6InJ94hGbyiw-ZD-jEGRAQVpf2vfq'
+            }
+        ],
+        exercises: [
+            'أوجد مرجح النقطتين A و B بالمعاملات (1,2)',
+            'بين أن مرجح ثلاث نقط لا يعتمد على ترتيبها'
+        ]
+    },
+    'geometrie-espace-2as': {
+        title: 'الهندسة الفضائية',
+        files: [
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            }
+        ],
+        exercises: [
+            'أوجد معادلة المستوي المار بالنقطة (1,2,3) وعمودي على المتجه (1,0,-1)',
+            'حدد موقع المستقيمين في الفضاء: (x=1+t, y=2-t, z=3+2t) و (x=2-s, y=1+s, z=4-s)'
+        ]
+    },
+    'suites-numeriques': {
+        title: 'النهايات',
+        files: [
+            {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+             {
+                name: 'مذكرات بلعالية العربي',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1IhawIOVH-bwY7BdhoA06qCMIRuSg7lJv'
+            },
+             {
+                name: 'مذكرات بوعزة مصطفى',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1PfZTmhvEcHeENvy3r7rq0QbPlUsNH0Lc'
+            },
+             {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1TSRK2WoqrzVdPTBJ1_7m15QZ7i9v-uTS'
+            },
+                {
+                name: 'مذكرات شداني',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1OKZE2w7lVutZZhj93VdvtYrLdFQoHSEY'
+            },
+                {
+                name: 'مذكرات محور النهايات',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/file/d/1_j1RBDY6uVb5jSI57BmFgMMMMsdDJ7jf/view?usp=drivesdk'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            }
+        ],
+        exercises: [
+            'أوجد معادلة المستوي المار بالنقطة (1,2,3) وعمودي على المتجه (1,0,-1)',
+            'حدد موقع المستقيمين في الفضاء: (x=1+t, y=2-t, z=3+2t) و (x=2-s, y=1+s, z=4-s)'
+        ]
+    },
+    'derivation': {
+        title: 'الزوايا الموجهة',
+        files: [
+              {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+             {
+                name: 'مذكرات بلعالية العربي',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1ZxPrBLF9nV1OY8aOHzkSRkuCYViPH53l'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            }
+        ],
+        exercises: [
+            'أوجد معادلة المستوي المار بالنقطة (1,2,3) وعمودي على المتجه (1,0,-1)',
+            'حدد موقع المستقيمين في الفضاء: (x=1+t, y=2-t, z=3+2t) و (x=2-s, y=1+s, z=4-s)'
+        ]
+    },
+    'etude-fonctions': {
+        title: 'التحويلات النقطية',
+        files: [
+              {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+             {
+                name: 'مذكرات بلعالية العربي',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/139W8n_cl6jx0mr_VUJtinalbbq9WyUMp'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            }
+        ],
+        exercises: [
+            'أوجد معادلة المستوي المار بالنقطة (1,2,3) وعمودي على المتجه (1,0,-1)',
+            'حدد موقع المستقيمين في الفضاء: (x=1+t, y=2-t, z=3+2t) و (x=2-s, y=1+s, z=4-s)'
+        ]
+    },
+    'probabilites-base': {
+        title: 'الجداء السلمي',
+        files: [
+              {
+                name: 'مذكرات بخدة امين',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1-6zD7OtEprOLaediZxmu1wxsWRx5rS36'
+            },
+             {
+                name: 'مذكرات شداني',
+                type: 'pdf',
+                size: '2.8 MB',
+                description: 'أساسيات نظرية الاحتمالات',
+                url: 'https://drive.google.com/drive/folders/1dq5UdyWpf3ihbxpO9VDDKdHabmN0j56n'
+            },
+            {
+                name: 'مذكرات بن علو لخضر',
+                type: 'pdf',
+                size: '2.6 MB',
+                description: 'شرح مفهوم المرجح',
+                url: 'https://drive.google.com/drive/folders/102aYRecpG7K_9n3cK59RlL6cZwI4EGcv'
+            },
+             {
+                name: 'مذكرات جميع المحاور لمومنة',
+                type: 'pdf',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور لمومنة',
+                url: 'https://drive.google.com/drive/folders/1HVpNYDJB9yqIkVF86cUm9F4K0tiqhzFy'
+            },
+             {
+                name: 'مذكرات سمية طويل',
+                type: 'worde',
+                size: '3.2 MB',
+                description: 'مذكرات سمية طويل',
+                url: 'https://drive.google.com/drive/folders/1YjjMDh36fDsPiMxOXO9Hh9TDkOlX-SfA'
+            },
+            {
+                name: 'مذكرات شيلة خديجة',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات شيلة خديجة',
+                url: 'https://drive.google.com/drive/folders/1GOjxQh4YUIY9umID7d93XgsmaelgaBKk'
+            },
+               {
+                name: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات جميع المحاور للاستاذة بوفاروك',
+                url: 'https://drive.google.com/drive/folders/1ORVmD98y4WDEdfh891io5kVFydWUgQZ2'
+            },
+             {
+                name: 'مذكرات',
+                type: 'word',
+                size: '3.2 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/13rYhLJDbnxq5YchlxQEeWZSkxyhNxuJe'
+            }
+        ],
+        exercises: [
+            'أوجد معادلة المستوي المار بالنقطة (1,2,3) وعمودي على المتجه (1,0,-1)',
+            'حدد موقع المستقيمين في الفضاء: (x=1+t, y=2-t, z=3+2t) و (x=2-s, y=1+s, z=4-s)'
+        ]
+    },
+    'all-exercises': {
+        title: 'سلسلة التمارين الشاملة',
+        files: [
+            {
+                name: 'التمارين الشاملة الجزء الأول',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'تمارين جميع الدروس - الجزء الأول',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'التمارين الشاملة الجزء الثاني',
+                type: 'pdf',
+                size: '3.1 MB',
+                description: 'تمارين جميع الدروس - الجزء الثاني',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'حلول التمارين',
+                type: 'pdf',
+                size: '4.2 MB',
+                description: 'حلول جميع التمارين',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مجموعة تمارين الأعداد والحساب',
+            'مجموعة تمارين الدوال',
+            'تمارين الهندسة المستوية'
+        ]
+    },
+    
+  
+    
+    // قسم الفروض
+    'semester1-exams': {
+        title: 'فروض الفصل الأول',
+        files: [
+            {
+                name: 'نموذج الفرض الأول 2023',
+                type: 'pdf',
+                size: '1.2 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'نموذج الفرض الثاني 2023',
+                type: 'pdf',
+                size: '1.5 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مسائل الفرض الأول',
+            'مسائل الفرض الثاني'
+        ]
+    },
+    
+    'semester2-exams': {
+        title: 'اختبارات نهاية السنة',
+        files: [
+            {
+                name: 'اختبار نهاية السنة 2023',
+                type: 'pdf',
+                size: '2.1 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'اختبارات سنوات سابقة',
+                type: 'pdf',
+                size: '3.8 MB',
+                description: 'مجموعة اختبارات 2018-2022',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مسائل اختبار 2023',
+            'مسائل اختبار 2022'
+        ]
+    }
+        };
+
+        // دالة لفتح نافذة الدرس
+        function openLesson(lessonId) {
+            const lesson = lessonFiles[lessonId];
+            if (!lesson) return;
+            
+            document.getElementById('modalTitle').textContent = lesson.title;
+            const filesContainer = document.getElementById('modalFiles');
+            const exercisesContainer = document.getElementById('modalExercises');
+            
+            filesContainer.innerHTML = '';
+            exercisesContainer.innerHTML = '';
+            
+            // عرض الملفات
+            lesson.files.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                let iconClass = 'file-pdf';
+                if (file.type === 'video') iconClass = 'file-video';
+                else if (file.type === 'ppt') iconClass = 'file-ppt';
+                else if (file.type === 'word') iconClass = 'file-doc';
+                
+                fileItem.innerHTML = `
+                    <div class="file-icon ${iconClass}">
+                        <i class="fas fa-${file.type === 'pdf' ? 'file-pdf' : 
+                                          file.type === 'video' ? 'video' : 
+                                          file.type === 'ppt' ? 'file-powerpoint' : 'file-word'}"></i>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-details">
+                            <span><i class="fas fa-file"></i> ${file.type.toUpperCase()}</span>
+                            <span><i class="fas fa-database"></i> ${file.size}</span>
+                            <span><i class="fas fa-info-circle"></i> ${file.description}</span>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="${file.url}" target="_blank" class="download-btn">
+                            <i class="fas fa-download"></i> تحميل
+                        </a>
+                    </div>
+                `;
+                
+                filesContainer.appendChild(fileItem);
+            });
+            
+            // عرض التمارين
+            lesson.exercises.forEach((exercise, index) => {
+                const exerciseItem = document.createElement('div');
+                exerciseItem.className = 'exercise-item';
+                exerciseItem.innerHTML = `
+                    <div class="exercise-text">${exercise}</div>
+                `;
+                exercisesContainer.appendChild(exerciseItem);
+            });
+            
+            document.getElementById('filesModal').style.display = 'block';
+        }
+
+        // دالة لإغلاق النافذة
+        function closeModal() {
+            document.getElementById('filesModal').style.display = 'none';
+        }
+
+        // دالة للتمرير لأعلى الصفحة
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إظهار/إخفاء زر العودة للأعلى
+        window.onscroll = function() {
+            const btn = document.querySelector('.floating-btn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        };
+
+        // دالة لعرض مستوى معين
+        function showLevel(levelId) {
+            // إزالة المساحة و active من المعرف
+            const cleanLevelId = levelId.replace(' active', '');
+            
+            document.querySelectorAll('.level-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(cleanLevelId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -2,137 +2,1300 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>السنة الأولى ثانوي - جذع مشترك آداب</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دروس الرياضيات - المنهج الجزائري</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #3f51b5, #2196f3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid #ff9800;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #3f51b5;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #495057;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: #dee2e6;
+        }
+
+        .nav-tab.active {
+            background: #3f51b5;
+            color: white;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #ff9800;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .level-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .level-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-header {
+            background: linear-gradient(45deg, #3f51b5, #2196f3);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .subject-header i {
+            font-size: 1.8rem;
+            color: #ffeb3b;
+        }
+
+        .subject-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .lesson-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            border-right: 4px solid #3f51b5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+
+        .lesson-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.15);
+            border-color: #3f51b5;
+        }
+
+        .lesson-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-title i {
+            color: #3f51b5;
+            font-size: 1.2rem;
+        }
+
+        .lesson-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .difficulty {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .difficulty.easy { background: #e8f5e9; color: #2e7d32; }
+        .difficulty.medium { background: #fff8e1; color: #ff8f00; }
+        .difficulty.hard { background: #ffebee; color: #c62828; }
+
+        .lesson-duration {
+            color: #6c757d;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* نافذة عرض الملفات */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.4s;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #f44336;
+        }
+
+        .modal-header {
+            padding: 15px 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid #3f51b5;
+        }
+
+        .modal-header i {
+            font-size: 1.8rem;
+            color: #3f51b5;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .files-section, .exercises-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #3f51b5;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .file-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+            border-color: #3f51b5;
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .file-pdf { background: #f44336; }
+        .file-video { background: #2196f3; }
+        .file-ppt { background: #ff9800; }
+        .file-doc { background: #4caf50; }
+
+        .file-info {
+            flex-grow: 1;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .file-details {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            gap: 15px;
+        }
+
+        .file-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-btn, .preview-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+        .download-btn {
+            background: #3f51b5;
+        }
+
+        .preview-btn {
+            background: #6c757d;
+        }
+
+        .download-btn:hover {
+            background: #303f9f;
+            transform: translateY(-2px);
+        }
+
+        .preview-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .exercise-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-right: 3px solid #3f51b5;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .exercise-item::before {
+            content: "تمرين";
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: #3f51b5;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* زر العودة للأعلى */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .floating-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-btn:hover {
+            background: #303f9f;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            
+            .lessons-grid { 
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .nav-tab { 
+                font-size: 0.9rem; 
+                padding: 12px 10px; 
+                min-width: 140px; 
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-icon {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .file-actions {
+                width: 100%;
+                display: flex;
+                margin-top: 10px;
+            }
+            
+            .download-btn, .preview-btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.5rem; }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .subject-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .subject-header i {
+                font-size: 1.5rem;
+            }
+            
+            .lesson-item {
+                padding: 15px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <section class="container">
-        <h1>دروس الرياضيات للسنة الأولى ثانوي - جذع مشترك آداب</h1>
-          <div class="lesson">
-            <div class="lesson-title">الاعداد و الحساب</div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">ملف شامل للمذكرات</div>
-                <a href="https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">word</span>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-square-root-alt"></i> جذع مشترك أداب</h1>
+            <p>مذكرات-تمارين-ملخصات-فروض-اختبارات</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showLevel('1as-science')">دروس ومذكرات</button>
+            <button class="nav-tab" onclick="showLevel('1as-td')">تماربن وملخصات</button>
+            <button class="nav-tab" onclick="showLevel('1as-exem')">فروض واختبارات</button>
+           
+            <!-- يمكن إضافة مستويات أخرى هنا -->
+        </div>
+
+       <div class="content">
+            <!-- السنة الأولى ثانوي جذع مشترك آداب -->
+            <div id="1as-adab" class="level-section active">
+                <div class="subject-card">
+                    <div class="subject-header">
+                        <i class="fas fa-book-open"></i>
+                        <h2>الرياضيات - السنة الأولى ثانوي جذع مشترك آداب</h2>
+                    </div>
+                    <div class="lessons-grid">
+                        <div class="lesson-item" onclick="openLesson('ralitesgene-fonctions')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                الاعداد و الحساب
+                            </div>
+                            <div class="lesson-description">
+                                تعريف الدالة، المجال، المجموعة المقابلة، التمثيل البياني
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 45 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('fonction-lineaire')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-line"></i>
+                                المجالات و القيمة المطلقة
+                            </div>
+                            <div class="lesson-description">
+                                الدالة الخطية f(x) = ax، الدالة التآلفية f(x) = ax + b
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 50 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('equations-inequations')">
+                            <div class="lesson-title">
+                                <i class="fas fa-equals"></i>
+                                عموميات على الدوال
+                            </div>
+                            <div class="lesson-description">
+                                حل المعادلات من الدرجة الأولى والثانية، المتراجحات البسيطة
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty medium">متوسط</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 60 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('statistiques-1as')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                العبارات الجبرية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+                        <div class="lesson-item" onclick="openLesson('fonction')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الدوال المرجعية
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+                        <div class="lesson-item" onclick="openLesson('statistiques')">
+                            <div class="lesson-title">
+                                <i class="fas fa-chart-bar"></i>
+                                الإحصاء
+                            </div>
+                            <div class="lesson-description">
+                                تنظيم المعطيات، المتوسط الحسابي، الوسيط، المنوال
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 40 دقيقة</span>
+                            </div>
+                        </div>
+
+
+                        <div class="lesson-item" onclick="openLesson('pourcentages')">
+                            <div class="lesson-title">
+                               <i class="fas fa-percentage"></i>
+                                الحساب الشعاعي و معادلة مستقيم
+                            </div>
+                            <div class="lesson-description">
+                                حساب النسب المئوية، الزيادة والنقصان المئوي
+                            </div>
+                            <div class="lesson-meta">
+                                <span class="difficulty easy">سهل</span>
+                                <span class="lesson-duration"><i class="fas fa-clock"></i> 35 دقيقة</span>
+                            </div>
+                        </div>
+                        
+                        <!-- باقي الدروس بنفس النمط -->
+                    </div>
+                </div>
             </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور1</div>
-                <a href="https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
+               <!-- قسم جديد للتمارين -->
+         <div id="1as-td" class="level-section">
+           <div class="subject-card">
+               <div class="subject-header">
+                <i class="fas fa-pen-fancy"></i>
+                <h2>تمارين الرياضيات</h2>
             </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور2</div>
-                <a href="https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
+            <div class="lessons-grid">
+                <div class="lesson-item" onclick="openLesson('all-exercises')">
+                    <div class="lesson-title">
+                        <i class="fas fa-tasks"></i>
+                        سلسلة التمارين الشاملة
+                    </div>
+                    <div class="lesson-description">
+                        جميع تمارين الرياضيات للسنة الأولى ثانوي
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty medium">متوسط</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 120 دقيقة</span>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+   
+    <!-- قسم جديد للفروض -->
+    <div id="1as-exem" class="level-section">
+        <div class="subject-card">
+            <div class="subject-header">
+                <i class="fas fa-clipboard-check"></i>
+                <h2>فروض واختبارات</h2>
             </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور3</div>
-                <a href="https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور4</div>
-                <a href="https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
+            <div class="lessons-grid">
+                <div class="lesson-item" onclick="openLesson('semester1-exams')">
+                    <div class="lesson-title">
+                        <i class="fas fa-file-signature"></i>
+                        فروض الفصل الأول
+                    </div>
+                    <div class="lesson-description">
+                        نماذج فروض الفصل الأول مع الحلول
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty medium">متوسط</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 90 دقيقة</span>
+                    </div>
+                </div>
+                <div class="lesson-item" onclick="openLesson('semester2-exams')">
+                    <div class="lesson-title">
+                        <i class="fas fa-award"></i>
+                        اختبارات نهاية السنة
+                    </div>
+                    <div class="lesson-description">
+                        نماذج اختبارات نهاية السنة مع الحلول
+                    </div>
+                    <div class="lesson-meta">
+                        <span class="difficulty hard">صعب</span>
+                        <span class="lesson-duration"><i class="far fa-clock"></i> 120 دقيقة</span>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="lesson">
-            <div class="lesson-title">المجالات و القيمة المطلقة</div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">ملف شامل للمذكرات</div>
-                <a href="https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">word</span>
+    
+     
+        </div>
+    </div>
+
+    <!-- نافذة عرض الملفات -->
+    <div id="filesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-book-open"></i>
+                <h2 id="modalTitle">عنوان الدرس</h2>
             </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور1</div>
-                <a href="https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
+            
+            <div class="files-section">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>الملفات التعليمية</h3>
+                </div>
+                <div id="modalFiles"></div>
             </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور2</div>
-                <a href="https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور3</div>
-                <a href="https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور4</div>
-                <a href="https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
+            
+            <div class="exercises-section">
+                <div class="section-title">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>تمارين تطبيقية</h3>
+                </div>
+                <div id="modalExercises"></div>
             </div>
         </div>
-        
-        <div class="lesson">
-            <div class="lesson-title">عموميات على الدوال</div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">ملف شامل للمذكرات</div>
-                <a href="https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">word</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور1</div>
-                <a href="https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور2</div>
-                <a href="https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور3</div>
-                <a href="https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور4</div>
-                <a href="https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-        </div>
-        
-        <div class="lesson">
-            <div class="lesson-title">الحساب الشعاعي و معادلة مستقيم</div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">ملف شامل للمذكرات</div>
-                <a href="https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">word</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور1</div>
-                <a href="https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور2</div>
-                <a href="https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور3</div>
-                <a href="https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">مذكرات جميع المحاور4</div>
-                <a href="https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">PDF</span>
-            </div>
-        </div>
-        
-        <div class="lesson">
-            <div class="lesson-title">الدوال المرجعية</div>
-            <div class="sub-lesson">
-                <div class="sub-lesson-title">ملف شامل للمذكرات</div>
-                <a href="https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x" class="sub-lesson-link" target="_blank">فتح الملف</a>
-                <span class="file-type">word</span>
-            </div>
-         </div>
-     </section>
+    </div>
+
+    <button class="floating-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // بيانات الدروس والملفات
+        const lessonFiles = {
+    // السنة الأولى ثانوي آداب
+    'ralitesgene-fonctions': {
+        title: 'الأعداد والحساب',
+        files: [
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            },
+             {
+                name: 'مذكرات راحيس عمر',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات',
+                url: 'https://drive.google.com/drive/folders/1TmfUshr0UcpX2jGA0Yb0z7DIvaDIGltg'
+            },
+            {
+                name: 'مذكرات الاعداد و الحساب رقم 1-2 للاستاذ بلبحري',
+                type: 'pdf',
+                size: '45 MB',
+                description: 'مذكرات الاعداد و الحساب رقم 1-2 للاستاذ بلبحري',
+                url: 'https://drive.google.com/file/d/1K19WVlnNM64vCZtj51bZcQW8sVda2JZB/view?usp=drivesdk'
+            },
+           
+        ],
+        exercises: [
+            'احسب: 15 + 23 × 4',
+            'أوجد ناتج: (25 - 7) ÷ 3',
+            'رتب الأعداد التالية تصاعدياً: 45، 12، 78، 34'
+        ]
+    },
+    'fonction-lineaire': {
+        title: 'المجالات و القيمة المطلقة',
+        files: [
+             {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '1.5 MB',
+                description: 'يمكنك التعديل',
+                url: 'https://drive.google.com/drive/folders/1VdCkVGPrvbgrnd8t2hwR1g9aG3JS2Ar3'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'أوجد |−7|',
+            'حل المعادلة |x| = 5',
+            'عين المجال: [−3, 7['
+        ]
+    },
+    'equations-inequations': {
+        title: 'عموميات على الدوال',
+        files: [
+            {
+                name: 'مذكرات اولى اداب محور الدوال',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مفهوم الدالة واتجاه التغير و التمثيل البياني',
+                url: 'https://drive.google.com/file/d/1Yxv59M0912CHmSFMMwnHlrVyWYZZmc2V/view?usp=drivesdk'
+            },
+            {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '45 MB',
+                description: 'يمكنك التعديل عليها',
+                url: 'https://drive.google.com/drive/folders/156LJ7JiY-Yfnc1_BotsUWEjFjRvOykFO'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'احسب: 15 + 23 × 4',
+            'أوجد ناتج: (25 - 7) ÷ 3'
+        ]
+    },
+    'statistiques-1as': {
+        title: 'العبارات الجبرية',
+        files: [
+            {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '1.5 MB',
+                description: 'يمكنك التعديل',
+                url: 'https://drive.google.com/drive/folders/167bUlBFQGIULWJmcDuwsthUF-pToQLdY'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'بسط العبارة: 3x + 2y - x + 4y',
+            'احسب قيمة 2x + 5 عندما x = 3'
+        ]
+    },
+    'fonction': {
+        title: 'الدوال المرجعية',
+        files: [
+           {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '1.5 MB',
+                description: 'يمكنك التعديل',
+                url: 'https://drive.google.com/drive/folders/1syOmC8rUdgbqKQP2NQhcx0BLAXPfEOu2'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'عين دالة خطية تمر من النقطة (2,5)',
+            'مثل بيانياً الدالة f(x) = x²'
+        ]
+    },
+    'statistiques': {
+        title: 'الإحصاء',
+        files: [
+          {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '1.5 MB',
+                description: 'يمكنك التعديل',
+                url: 'https://drive.google.com/drive/folders/1QzF61QtXi-7ZV6TuKQ5czcpC72YtjHDK'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'احسب المتوسط الحسابي للأعداد: 5, 7, 9, 12',
+            'أوجد الوسيط للقيم: 3, 5, 7, 8, 10'
+        ]
+    },
+    'pourcentages': {
+        title: 'الحساب الشعاعي و معادلة مستقيم',
+        files: [
+            {
+                name: 'مذكرات راحيس عمر',
+                type: 'word',
+                size: '1.5 MB',
+                description: 'يمكنك التعديل',
+                url: 'https://drive.google.com/drive/folders/1ZBp_YOBggopgFgLA7MjEWfqlOS9uJzpr'
+            },
+            {
+                name: 'مذكرات جميع المحاور1',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xV8HqbCVWwD2bmeH-RWRsgaQ2UNIBi2L'
+            },
+             {
+                name: 'مذكرات جميع المحاور2',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/10jn6pR0qVlnyZO23La0x46YS8B5P7AbI'
+            },
+             {
+                name: 'مذكرات جميع المحاور3',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1xe5M3jwt9d5-GRy_zdmBOL4mFjmdJY7n'
+            },
+             {
+                name: 'مذكرات جميع المحاور4',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1b20_2qmsE4jSSH-SdzqhByLlIFiEa2mh'
+            },
+             {
+                name: 'مذكرات جميع المحاور5',
+                type: 'word',
+                size: '2.5 MB',
+                description: 'مذكرات مجموعة من الاساتذة',
+                url: 'https://drive.google.com/drive/folders/1pZGTSZdVUd4JmXRM74F3q5J1oTOsRb6x'
+            }
+        ],
+        exercises: [
+            'احسب ناتج جمع المتجهين (3,5) و (2,-1)',
+            'أوجد معادلة المستقيم المار بالنقطتين (1,2) و (3,4)'
+        ]
+    },
+    'all-exercises': {
+        title: 'سلسلة التمارين الشاملة',
+        files: [
+            {
+                name: 'التمارين الشاملة الجزء الأول',
+                type: 'pdf',
+                size: '2.5 MB',
+                description: 'تمارين جميع الدروس - الجزء الأول',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'التمارين الشاملة الجزء الثاني',
+                type: 'pdf',
+                size: '3.1 MB',
+                description: 'تمارين جميع الدروس - الجزء الثاني',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'حلول التمارين',
+                type: 'pdf',
+                size: '4.2 MB',
+                description: 'حلول جميع التمارين',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مجموعة تمارين الأعداد والحساب',
+            'مجموعة تمارين الدوال',
+            'تمارين الهندسة المستوية'
+        ]
+    },
+    
+  
+    
+    // قسم الفروض
+    'semester1-exams': {
+        title: 'فروض الفصل الأول',
+        files: [
+            {
+                name: 'نموذج الفرض الأول 2023',
+                type: 'pdf',
+                size: '1.2 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'نموذج الفرض الثاني 2023',
+                type: 'pdf',
+                size: '1.5 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مسائل الفرض الأول',
+            'مسائل الفرض الثاني'
+        ]
+    },
+    
+    'semester2-exams': {
+        title: 'اختبارات نهاية السنة',
+        files: [
+            {
+                name: 'اختبار نهاية السنة 2023',
+                type: 'pdf',
+                size: '2.1 MB',
+                description: 'مع التصحيح النموذجي',
+                url: 'https://drive.google.com/...'
+            },
+            {
+                name: 'اختبارات سنوات سابقة',
+                type: 'pdf',
+                size: '3.8 MB',
+                description: 'مجموعة اختبارات 2018-2022',
+                url: 'https://drive.google.com/...'
+            }
+        ],
+        exercises: [
+            'مسائل اختبار 2023',
+            'مسائل اختبار 2022'
+        ]
+    }
+        };
+
+        // دالة لفتح نافذة الدرس
+        function openLesson(lessonId) {
+            const lesson = lessonFiles[lessonId];
+            if (!lesson) return;
+            
+            document.getElementById('modalTitle').textContent = lesson.title;
+            const filesContainer = document.getElementById('modalFiles');
+            const exercisesContainer = document.getElementById('modalExercises');
+            
+            filesContainer.innerHTML = '';
+            exercisesContainer.innerHTML = '';
+            
+            // عرض الملفات
+            lesson.files.forEach(file => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                let iconClass = 'file-pdf';
+                if (file.type === 'video') iconClass = 'file-video';
+                else if (file.type === 'ppt') iconClass = 'file-ppt';
+                else if (file.type === 'word') iconClass = 'file-doc';
+                
+                fileItem.innerHTML = `
+                    <div class="file-icon ${iconClass}">
+                        <i class="fas fa-${file.type === 'pdf' ? 'file-pdf' : 
+                                          file.type === 'video' ? 'video' : 
+                                          file.type === 'ppt' ? 'file-powerpoint' : 'file-word'}"></i>
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-details">
+                            <span><i class="fas fa-file"></i> ${file.type.toUpperCase()}</span>
+                            <span><i class="fas fa-database"></i> ${file.size}</span>
+                            <span><i class="fas fa-info-circle"></i> ${file.description}</span>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="${file.url}" target="_blank" class="download-btn">
+                            <i class="fas fa-download"></i> تحميل
+                        </a>
+                    </div>
+                `;
+                
+                filesContainer.appendChild(fileItem);
+            });
+            
+            // عرض التمارين
+            lesson.exercises.forEach((exercise, index) => {
+                const exerciseItem = document.createElement('div');
+                exerciseItem.className = 'exercise-item';
+                exerciseItem.innerHTML = `
+                    <div class="exercise-text">${exercise}</div>
+                `;
+                exercisesContainer.appendChild(exerciseItem);
+            });
+            
+            document.getElementById('filesModal').style.display = 'block';
+        }
+
+        // دالة لإغلاق النافذة
+        function closeModal() {
+            document.getElementById('filesModal').style.display = 'none';
+        }
+
+        // دالة للتمرير لأعلى الصفحة
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // إظهار/إخفاء زر العودة للأعلى
+        window.onscroll = function() {
+            const btn = document.querySelector('.floating-btn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        };
+
+        // دالة لعرض مستوى معين
+        function showLevel(levelId) {
+            // إزالة المساحة و active من المعرف
+            const cleanLevelId = levelId.replace(' active', '');
+            
+            document.querySelectorAll('.level-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(cleanLevelId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
